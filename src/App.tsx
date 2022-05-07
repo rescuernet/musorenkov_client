@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC} from 'react';
+import {RM} from './routes/routes'
+import {Navigate, Route, Routes} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+export const App: FC = () => {
+    const routes = Object.values(RM);
+    console.log(routes)
+    const isAuth = false
+    return (
+        <div className="App">
+            <Routes>
+                {routes.map(({path, Component, auth}) => (auth === isAuth || path === '/') &&
+                    <Route key={path} path={path} element={<Component/>}/>)
+                }
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
+            </Routes>
+        </div>
+    );
 }
 
-export default App;
