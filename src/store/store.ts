@@ -3,7 +3,8 @@ import {makeAutoObservable} from "mobx";
 
 class Store {
 
-    isInit = 0
+    isLoading = false
+    isInit = false
 
     constructor() {
         makeAutoObservable(this);

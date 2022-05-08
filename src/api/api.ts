@@ -1,9 +1,7 @@
-const $api = 0
-
-/*
 import axios from "axios";
 import {SERVER_URL} from "../const/const";
-import AuthStore from "../bll/auth-store";
+import AuthStore from "../auth/auth-store";
+
 
 
 const $api = axios.create({
@@ -11,7 +9,8 @@ const $api = axios.create({
     baseURL: SERVER_URL + '/api'
 });
 
-$api.interceptors.request.use((config) => {
+
+$api.interceptors.request.use((config: any) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     return config;
 })
@@ -24,16 +23,15 @@ $api.interceptors.response.use((config) => {
         originalRequest._isRetry = true;
         try {
             const response = await axios.get(`${SERVER_URL}/api/refresh`, {withCredentials: true});
-            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('token',response.data.token);
             return $api.request(originalRequest);
         } catch (e) {
             console.log('Не авторизованный пользователь')
-            return AuthStore.logout()
+            return /*AuthStore.logout()*/
         }
     }
     throw error;
 })
-*/
 export default $api;
 
 

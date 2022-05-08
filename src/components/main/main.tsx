@@ -1,22 +1,26 @@
 import React, {FC} from 'react';
-import { Navigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Button} from "@material-ui/core";
-import Store from "../../store/store";
 import {observer} from "mobx-react";
 import {runInAction} from "mobx";
+import AuthStore from "../../auth/auth-store";
 
 const Main: FC = () => {
-    const isAuth = true
-    if(!isAuth){return <Navigate replace to="/login" />}
+
+    const history = useNavigate();
+
 
     return (
         <div>
-            <h5>{Store.isInit}</h5>
+            <Button onClick={()=>{
+                history('/users')
+            }}>users</Button>
+
             <Button onClick={()=>{
                 runInAction(()=>{
-                    Store.isInit++
+                    AuthStore.isAuth = false
                 })
-            }}>init</Button>
+            }}>logout</Button>
         </div>
     );
 };
