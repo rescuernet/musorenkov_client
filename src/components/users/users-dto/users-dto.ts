@@ -1,5 +1,5 @@
 export type UsersDto =  {
-    _id: string;
+    id: string;
     email: string
     roles: [string]
 }

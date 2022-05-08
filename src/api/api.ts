@@ -2,8 +2,6 @@ import axios from "axios";
 import {SERVER_URL} from "../const/const";
 import AuthStore from "../auth/auth-store";
 
-
-
 const $api = axios.create({
     withCredentials: true,
     baseURL: SERVER_URL + '/api'
@@ -26,8 +24,7 @@ $api.interceptors.response.use((config) => {
             localStorage.setItem('token',response.data.token);
             return $api.request(originalRequest);
         } catch (e) {
-            console.log('Не авторизованный пользователь')
-            return /*AuthStore.logout()*/
+            return AuthStore.Logout()
         }
     }
     throw error;

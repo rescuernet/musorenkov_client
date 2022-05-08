@@ -4,11 +4,12 @@ import { SERVER_URL } from "../const/const";
 import Store from "../store/store";
 import {AuthService} from "./auth-service";
 
+
 class AuthStore {
 
-    user = {}
-    isAuth = false
-    authError = {}
+    user: any = {}
+    isAuth: boolean = false
+    authError: string = ''
 
     constructor() {
         makeAutoObservable(this);
@@ -16,7 +17,7 @@ class AuthStore {
 
     Login = async (login: string,password: string) => {
         runInAction(() => {
-            this.authError = {}
+            this.authError = ''
             Store.isLoading = true
         })
         try {
@@ -27,8 +28,25 @@ class AuthStore {
                 this.user = response.data.user
                 this.isAuth = true
             })
-        } catch (e) {
-            console.log('errors',e)
+        } catch (e: any) {
+            runInAction(() => {
+                this.authError = e.message
+            })
+        }finally {
+            runInAction(() => {Store.isLoading = false})
+        }
+    }
+
+    Logout = async () => {
+        runInAction(() => {Store.isLoading = true})
+        try {
+            const response = await AuthService.logout(this.user.id);
+            localStorage.removeItem('token');
+            runInAction(() => {this.user = {}})
+            runInAction(() => {this.isAuth = false})
+            return response
+        } catch (e: any) {
+            console.log(e.response?.data?.message);
         }finally {
             runInAction(() => {Store.isLoading = false})
         }
@@ -42,6 +60,7 @@ class AuthStore {
             runInAction(() => {this.user = response.data.user})
             runInAction(() => {this.isAuth = true})
         } catch (e) {
+            localStorage.removeItem('token');
             runInAction(() => {this.user = {}})
             runInAction(() => {this.isAuth = false})
         } finally {

@@ -30,7 +30,6 @@ const Login: FC = () => {
     return (
         <div className={classes.wrap}>
             <div className={classes.login}>
-                <div>{AuthStore.isAuth ? 'true' : 'false'}</div>
                 <TextField
                     label="логин"
                     variant={"outlined"}
@@ -40,6 +39,8 @@ const Login: FC = () => {
                     }}
                     fullWidth
                     className={classes.field}
+                    error={!!AuthStore.authError}
+                    onFocus={()=>{AuthStore.authError = ''}}
                 />
                 <TextField
                     label="пароль"
@@ -50,6 +51,8 @@ const Login: FC = () => {
                     }}
                     fullWidth
                     className={classes.field}
+                    error={!!AuthStore.authError}
+                    onFocus={()=>{AuthStore.authError = ''}}
                 />
                 <Button
                     variant={"contained"}
