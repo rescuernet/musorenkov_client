@@ -1,22 +1,23 @@
 import {makeAutoObservable, runInAction, toJS} from "mobx";
 import Store from "../../store/store";
-import {UsersService} from "./users-service";
+import { ClientsService } from "./clients-service";
 
-class UsersStore {
 
-    users = []
+class ClientsStore {
+
+    clients = []
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    getUsers = async () => {
+    getClients = async () => {
         runInAction(() => {
             Store.isLoading = true
         })
         try {
-            const response = await UsersService.getUsers()
-            runInAction(() => {this.users = response.data})
+            const response = await ClientsService.getClients()
+            runInAction(() => {this.clients = response.data})
         } catch (e) {
 
         }finally {
@@ -26,4 +27,4 @@ class UsersStore {
 
 }
 
-export default new UsersStore()
+export default new ClientsStore()

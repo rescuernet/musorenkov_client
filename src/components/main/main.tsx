@@ -11,15 +11,7 @@ const Main: FC = () => {
 
     return (
         <div>
-            <Button onClick={()=>{
-                history('/users')
-            }}>users</Button>
-
-            <Button onClick={()=>{
-                runInAction(()=>{
-                    AuthStore.Logout()
-                })
-            }}>logout</Button>
+            main
 
         </div>
     );

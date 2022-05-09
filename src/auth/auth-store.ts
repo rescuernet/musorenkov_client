@@ -44,7 +44,6 @@ class AuthStore {
             localStorage.removeItem('token');
             runInAction(() => {this.user = {}})
             runInAction(() => {this.isAuth = false})
-            return response
         } catch (e: any) {
             console.log(e.response?.data?.message);
         }finally {

@@ -49,6 +49,7 @@ const Login: FC = () => {
                     onChange={(e) => {
                         setPassword(e.target.value)
                     }}
+                    type={"password"}
                     fullWidth
                     className={classes.field}
                     error={!!AuthStore.authError}

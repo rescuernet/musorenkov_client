@@ -2,8 +2,9 @@ import React, {useEffect} from 'react';
 import UsersStore from "./users-store";
 import {Button} from "@material-ui/core";
 import {runInAction} from "mobx";
+import { observer } from 'mobx-react';
 
-export const Users = () => {
+const Users = () => {
 
 
 
@@ -17,3 +18,5 @@ export const Users = () => {
         </div>
     );
 };
+
+export default observer(Users)
